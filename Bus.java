@@ -52,7 +52,10 @@ class Bus extends Vehicle {
 
     public @Override
     void MoveTransport(Direction direction) {
-        float step = maxSpeed * 100 / weight;
+        float step = Math.abs(maxSpeed * 100 / weight);
+        if (step < 10 || step > 50){
+            step = 20;
+        }
 
         if (direction == Direction.Up) {
             if (y_koor - busHeight - step + 20 >= 0) {

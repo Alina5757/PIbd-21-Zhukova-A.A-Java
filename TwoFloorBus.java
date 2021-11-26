@@ -57,7 +57,6 @@ class TwoFloorBus extends Bus {
             g.fillRect((int) x_koor - 25, (int) y_koor + 30, 62, 3);
             g.fillRect((int) x_koor + 70, (int) y_koor + 30, 29, 3);
         }
-
         frame.repaint();
     }
 }

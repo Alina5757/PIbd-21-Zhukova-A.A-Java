@@ -1,6 +1,6 @@
 public class Program {
 
     public static void main(String[] args) {
-        WindowBus window = new WindowBus();
+        WindowParking parking = new WindowParking();
     }
 }
