@@ -19,29 +19,14 @@ public class ClassDopDoorsSkos implements InterDop{
         DrawDoor(g, (int) x_koor, (int) y_koor - 20, greyColor);
         DrawDoor(g, (int) x_koor + 16, (int) y_koor - 20, greyColor);
         DrawDoor(g, (int) x_koor + 68, (int) y_koor - 20, greyColor);
-        /*
-        g.setColor(greyColor);
-        g.fillRect((int) x_koor, (int) y_koor - 20, 16, 45);
-        g.fillRect((int) x_koor + 16, (int) y_koor - 20, 16, 45);
-        g.fillRect((int) x_koor + 68, (int) y_koor - 20, 16, 45);
-
-        g.setColor(Color.BLACK);
-        g.drawRect((int) x_koor, (int) y_koor - 20, 16, 45);
-        g.drawRect((int) x_koor + 16, (int) y_koor - 20, 16, 45);
-        g.drawRect((int) x_koor + 68, (int) y_koor - 20, 16, 45);*/
 
         if (doors == EnumDopDoors.FourDoors) {
-            DrawDoor(g, (int) x_koor - 96, (int) y_koor - 20, greyColor);/*
-
-            g.setColor(greyColor);
-            g.fillRect((int) x_koor - 96, (int) y_koor - 20, 16, 45);
-            g.setColor(Color.BLACK);
-            g.drawRect((int) x_koor - 96, (int) y_koor - 20, 16, 45);*/
+            DrawDoor(g, (int) x_koor - 96, (int) y_koor - 20, greyColor);
         }
+
         if (doors == EnumDopDoors.FiveDoors) {
             DrawDoor(g, (int) x_koor - 96, (int) y_koor - 20, greyColor);
             DrawDoor(g, (int) x_koor - 80, (int) y_koor - 20, greyColor);
-
         }
     }
     void DrawDoor(Graphics g, int x, int y, Color greyColor) {

@@ -14,6 +14,4 @@ public interface ITransport {
 
     //Отрисовка
     void DrawTransport(Graphics g, Frame frame);
-    //
-    //
 }

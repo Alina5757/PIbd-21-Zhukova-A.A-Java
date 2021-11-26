@@ -4,19 +4,21 @@ import java.util.Random;
 
 public class WindowBus {
     ITransport bus;
+    JFrame frame;
+    JFrame parkingframe;
+    CanvasBus canvas;
     private boolean bus_exist = false;
-    WindowBus() {
-        Canvas canvas = new Canvas();
-        JFrame frame = new JFrame("Window Bus");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    WindowBus(JFrame park) {
+        parkingframe = park;
+        canvas = new CanvasBus();
+        frame = new JFrame("Window Bus");
+
         frame.setSize(1000, 900);
         Container container = frame.getContentPane();
         container.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
-        GridBagLayout layout = new GridBagLayout();
         BorderLayout blayot = new BorderLayout();
         container.setLayout(blayot);
-        GridBagConstraints constraints = new GridBagConstraints();
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -95,18 +97,29 @@ public class WindowBus {
             }
         });
 
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                parkingframe.setEnabled(true);
+            }
+        });
+
         canvas.setBounds(0,0, 1000,900);
-        panel.add(canvas);
-        frame.add(panel);
-        frame.setVisible(true);
         frame.setState(JFrame.ICONIFIED);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
+
+    public void SetBus(ITransport bus) {
+        this.bus = bus;
+        bus_exist = true;
+        canvas.bus = bus;
+        canvas.bus_exist = true;
+        canvas.frame = frame;
+    }
 }
 
-
-class Canvas extends JComponent {
+class CanvasBus extends JComponent {
     JFrame frame;
     ITransport bus;
     Graphics2D g2d;
