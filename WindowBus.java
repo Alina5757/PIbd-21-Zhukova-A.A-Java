@@ -7,12 +7,20 @@ public class WindowBus {
     JFrame frame;
     JFrame parkingframe;
     CanvasBus canvas;
-    private boolean bus_exist = false;
-    WindowBus(JFrame park) {
+    public WindowParking Wparking;
+    public boolean bus_exist = false;
+    WindowBus(JFrame park, WindowParking Wparking) {
+        this.Wparking = Wparking;
+
+        bus_exist=true;
+        bus = Wparking.busCollection.peek();
+        if(bus == null){
+            bus_exist = false;
+            return;
+        }
         parkingframe = park;
         canvas = new CanvasBus();
         frame = new JFrame("Window Bus");
-
         frame.setSize(1000, 900);
         Container container = frame.getContentPane();
         container.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -44,7 +52,6 @@ public class WindowBus {
         JButton ButtonRight = new JButton(iconRight);
         ButtonRight.setBounds(920, 790, 50, 50);
         panel.add(ButtonRight);
-
 
         JButton ButtonCreateBus = new JButton("Create Bus");
         ButtonCreateBus.setBounds(805, 690, 150, 25);
@@ -108,6 +115,7 @@ public class WindowBus {
         frame.setState(JFrame.ICONIFIED);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        NextBusInQueue();
     }
 
     public void SetBus(ITransport bus) {
@@ -116,6 +124,19 @@ public class WindowBus {
         canvas.bus = bus;
         canvas.bus_exist = true;
         canvas.frame = frame;
+    }
+
+    void NextBusInQueue(){
+        if(this.Wparking.busCollection.peek() != null) {
+            bus = Wparking.GetbusCollection().poll();
+            Random random = new Random();
+            bus.SetPosition(100 + Math.abs(random.nextInt() % 701), 100 + Math.abs(random.nextInt() % 601), frame.getHeight(), frame.getWidth());
+            bus_exist = true;
+            canvas.DrawBus(bus, frame);
+        }
+        else{
+            JOptionPane.showMessageDialog(frame, "Collection is empty!");
+        }
     }
 }
 

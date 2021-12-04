@@ -61,8 +61,6 @@ public class ParkingBus<T extends ITransport, E extends InterDop> {
                 if (p.places.get(index) != null) {
                     T bus = p.places.get(index);
                     p.places.remove(index);
-                    p.places.add(index, null);
-                    frame.setEnabled(false);
                     return bus;
                 }
             }
@@ -120,6 +118,10 @@ public class ParkingBus<T extends ITransport, E extends InterDop> {
         this.frame = frame;
         DrawMapking(g, frame);
         for (int i = 0; i < places.size(); i++) {
+            places.get(i).SetPosition(110 + (i % height) * placeWidth, 100 + ((i) / (width)) * placeHeight, pictureHeight, pictureWidth);
+            places.get(i).DrawTransport(g, frame);
+        }
+        for (int i = 0; i < places.size(); i++) {
             if(places.get(i) != null){
             places.get(i).DrawTransport(g, frame);
             }
@@ -139,5 +141,15 @@ public class ParkingBus<T extends ITransport, E extends InterDop> {
             }
             g2d.setStroke(new BasicStroke(1));
         }
+    }
+
+    public Bus GetBusOfInd(int ind)
+    {
+        if (ind < this.places.size()) {
+            if (this.places.get(ind) != null) {
+                return (Bus) this.places.get(ind);
+            }
+        }
+        return null;
     }
 }

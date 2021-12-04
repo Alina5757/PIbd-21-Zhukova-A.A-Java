@@ -84,32 +84,34 @@ class Bus extends Vehicle {
         Color blueColor = new Color(192, 249, 255);
         Color greyColor = new Color(120, 120, 120);
 
-        g.setColor(mainColor);
-        g.fillRect((int) x_koor - 100, (int)y_koor - 30, 200, 70);  //корпус первый этаж
-        g.setColor(Color.BLACK);
-        g.drawRect((int) x_koor - 100,(int) y_koor - 30, 200, 70);
+        if(g!= null) {
+            g.setColor(mainColor);
+            g.fillRect((int) x_koor - 100, (int) y_koor - 30, 200, 70);  //корпус первый этаж
+            g.setColor(Color.BLACK);
+            g.drawRect((int) x_koor - 100, (int) y_koor - 30, 200, 70);
 
-        g.setColor(blueColor);
-        g.fillRect( (int)x_koor - 60, (int)y_koor - 20, 25, 25);  //окна первый этаж
-        g.fillRect( (int)x_koor - 30,(int) y_koor - 20, 25, 25);
-        g.fillRect((int) x_koor + 38, (int)y_koor - 20, 25, 25);
-        g.fillRect( (int)x_koor + 90,(int) y_koor - 20, 10, 25);
+            g.setColor(blueColor);
+            g.fillRect((int) x_koor - 60, (int) y_koor - 20, 25, 25);  //окна первый этаж
+            g.fillRect((int) x_koor - 30, (int) y_koor - 20, 25, 25);
+            g.fillRect((int) x_koor + 38, (int) y_koor - 20, 25, 25);
+            g.fillRect((int) x_koor + 90, (int) y_koor - 20, 10, 25);
 
-        g.setColor(Color.BLACK);
-        g.drawRect( (int)x_koor - 60, (int)y_koor - 20, 25, 25);
-        g.drawRect( (int)x_koor - 30,(int) y_koor - 20, 25, 25);
-        g.drawRect( (int)x_koor + 38,(int) y_koor - 20, 25, 25);
-        g.drawRect((int) x_koor + 90,(int) y_koor - 20, 10, 25);
+            g.setColor(Color.BLACK);
+            g.drawRect((int) x_koor - 60, (int) y_koor - 20, 25, 25);
+            g.drawRect((int) x_koor - 30, (int) y_koor - 20, 25, 25);
+            g.drawRect((int) x_koor + 38, (int) y_koor - 20, 25, 25);
+            g.drawRect((int) x_koor + 90, (int) y_koor - 20, 10, 25);
 
-        g.setColor(greyColor);
-        g.fillOval( (int)x_koor - 60,(int) y_koor + 20, 35, 35);   //колеса
-        g.fillOval((int) x_koor + 35,(int) y_koor + 20, 35, 35);
+            g.setColor(greyColor);
+            g.fillOval((int) x_koor - 60, (int) y_koor + 20, 35, 35);   //колеса
+            g.fillOval((int) x_koor + 35, (int) y_koor + 20, 35, 35);
 
-        g.setColor(Color.BLACK);
-        g.drawOval( (int)x_koor - 60,(int) y_koor + 20, 35, 35);
-        g.drawOval( (int)x_koor + 35, (int)y_koor + 20, 35, 35);
+            g.setColor(Color.BLACK);
+            g.drawOval((int) x_koor - 60, (int) y_koor + 20, 35, 35);
+            g.drawOval((int) x_koor + 35, (int) y_koor + 20, 35, 35);
 
-        dopdoors.DrowDoors(g, x_koor, y_koor);
+            dopdoors.DrowDoors(g, x_koor, y_koor);
+        }
         frame.repaint();
     }
 }
