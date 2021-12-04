@@ -14,6 +14,7 @@ public class WindowParking {
         return busCollection;
     }
     private ParkingCollection parkingCollection;
+    JFrame frame;
     CanvasPark canvas;
     JList ListBox;
 
@@ -23,7 +24,7 @@ public class WindowParking {
 
     WindowParking() {
         canvas = new CanvasPark();
-        JFrame frame = new JFrame("Window Parking");
+        frame = new JFrame("Window Parking");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1100, 700);
         Container container = frame.getContentPane();
@@ -93,14 +94,9 @@ public class WindowParking {
         DeleteParking.setBounds(905, 340, 150, 25);
         panel.add(DeleteParking);
 
-
-        JButton ButtonParkBus = new JButton("Park Bus");
-        ButtonParkBus.setBounds(905, 450, 150, 25);
-        panel.add(ButtonParkBus);
-
-        JButton ButtonParkTwoFloorBus = new JButton("Park TwoFloorBus");
-        ButtonParkTwoFloorBus.setBounds(905, 480, 150, 25);
-        panel.add(ButtonParkTwoFloorBus);
+        JButton ButtonCreateBus = new JButton("Create Bus");
+        ButtonCreateBus.setBounds(905, 450, 150, 50);
+        panel.add(ButtonCreateBus);
 
         JTextField numberPark = new JTextField(3);
         numberPark.setBounds(905, 530, 150, 25);
@@ -129,23 +125,8 @@ public class WindowParking {
             }
         });
 
-        ButtonParkBus.addActionListener(e -> {
-            Color color = JColorChooser.showDialog(panel, "Choose Color", Color.cyan);
-            Random random = new Random();
-            Bus bus = new Bus(100 + Math.abs(random.nextInt() % 101), Math.abs(1000 + random.nextInt() % 2001), color);
-            if (parkingCollection.GetParkingInd(ListBox.getSelectedValue().toString()).plus(parkingCollection.GetParkingInd(ListBox.getSelectedValue().toString()), bus) == 1) {
-                parkingCollection.GetParkingInd(ListBox.getSelectedValue().toString()).Draw(canvas.g2d, frame);
-            }
-        });
-
-        ButtonParkTwoFloorBus.addActionListener(e -> {
-            Color osncolor = JColorChooser.showDialog(panel, "Choose Color", Color.cyan);
-            Color dopcolor = JColorChooser.showDialog(panel, "Choose Color", Color.cyan);
-            Random random = new Random();
-            Bus bus = new TwoFloorBus(100 + Math.abs(random.nextInt() % 101), 1000 + Math.abs(random.nextInt() % 2001), osncolor, dopcolor, true, true);
-            if (parkingCollection.GetParkingInd(ListBox.getSelectedValue().toString()).plus(parkingCollection.GetParkingInd(ListBox.getSelectedValue().toString()), bus) == 1) {
-                parkingCollection.GetParkingInd(ListBox.getSelectedValue().toString()).Draw(canvas.g2d, frame);
-            }
+        ButtonCreateBus.addActionListener(e -> {
+            WindowBusConfig form = new WindowBusConfig(frame, this);
         });
 
         ButtonPickUpBus.addActionListener(e -> {
@@ -179,6 +160,19 @@ public class WindowParking {
         frame.setVisible(true);
         frame.setState(JFrame.ICONIFIED);
         frame.setLocationRelativeTo(null);
+    }
+
+    public void AddBus(Vehicle bus){
+        if (bus != null && ListBox.getSelectedIndex() > -1) {
+            ParkingBus p = parkingCollection.GetParkingInd(ListBox.getSelectedValue().toString());
+            if (p.GetPlaces().size() < 9){
+                p.plus(p, bus);
+                frame.repaint();
+            }
+            else {
+                JOptionPane.showMessageDialog(frame, "Error, the bus could not be place");
+            }
+        }
     }
 }
 
