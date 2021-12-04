@@ -9,6 +9,9 @@ class Bus extends Vehicle {
     public int GetBusHeight() { return busHeight; }
 
     InterDop dopdoors;
+    public void SetDoors(InterDop inter){
+        dopdoors = inter;
+    }
 
     public Bus(int Maxspeed, int Weight, Color MainColor) {
         maxSpeed = Maxspeed;
