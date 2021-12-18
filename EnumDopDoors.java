@@ -13,7 +13,7 @@ public enum EnumDopDoors {
     public boolean KolvoDoorExist(int kolvo){
         boolean flag = false;
         for (EnumDopDoors mass : EnumDopDoors.values()){
-            if (mass.ordinal() == kolvo){
+            if (mass.ordinal() + 3 == kolvo){
                 flag = true;
             }
         }
@@ -22,7 +22,7 @@ public enum EnumDopDoors {
 
     public EnumDopDoors GetDoors(int ind){
         for (EnumDopDoors mass : EnumDopDoors.values()){
-            if (mass.ordinal() == ind){
+            if (mass.ordinal() + 3 == ind){
                 return mass;
             }
         }

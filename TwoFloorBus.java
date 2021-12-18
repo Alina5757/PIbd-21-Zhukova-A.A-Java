@@ -20,6 +20,45 @@ class TwoFloorBus extends Bus {
         secondFloor = SecondFloor;
     }
 
+    public TwoFloorBus(String info) {  //для загрузки с файла
+        super(info);
+        String[] str = info.split(separator);
+
+        if (str.length == 8) {
+            maxSpeed = Integer.parseInt(str[0]);
+            weight = Integer.parseInt(str[1]);
+
+            if(str[2].equals("Doors-Normal")) {
+                dopdoors = new ClassDopDoorsNormal();
+            }
+            else if(str[2].equals("Doors-Oval")) {
+                dopdoors = new ClassDopDoorsOval();
+            }
+            else if(str[2].equals("Doors-Skos")) {
+                dopdoors = new ClassDopDoorsSkos();
+            }
+            else {return;}
+            int kolvoDoor = Integer.parseInt(str[3]);
+            if(kolvoDoor < 6 && kolvoDoor > 2){
+                dopdoors.SetDoors(kolvoDoor);
+            }
+            mainColor = Color.decode(str[4]);
+            dopColor = Color.decode(str[5]);
+            if(str[6].equals("true")){
+                polosa = true;
+            }
+            else {
+                polosa = false;
+            }
+            if(str[7].equals("true")){
+                secondFloor = true;
+            }
+            else {
+                secondFloor = false;
+            }
+        }
+    }
+
     public @Override
     void DrawTransport(Graphics g, Frame frame) {
         super.DrawTransport(g, frame);
@@ -60,5 +99,25 @@ class TwoFloorBus extends Bus {
             }
         }
         frame.repaint();
+    }
+
+    public @Override
+    String toString(){
+        String str = "";
+        str += super.toString();
+        str += separator + dopColor.getRGB() + separator;
+        if(polosa){
+            str += true + separator;
+        }
+        else {
+            str += false + separator;
+        }
+        if(secondFloor){
+            str += true;
+        }
+        else {
+            str += false;
+        }
+        return str;
     }
 }

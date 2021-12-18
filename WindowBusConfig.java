@@ -295,14 +295,18 @@ public class WindowBusConfig {
                 else if (selectObj instanceof JLabel && (((JLabel) selectObj).getName().contains("Door"))){
                     if ((activedroplistener.event.getSource() instanceof JLabel) &&
                             (((JLabel) activedroplistener.event.getSource()).equals(DoorSelect))) {
+                        int kolvo = ((Bus)bus).dopdoors.GetDoorsInt();
                         if(((JLabel) selectObj).getName().contains("DoorNormal")){
                             ((Bus)bus).SetDoors(new ClassDopDoorsNormal());
+                            ((Bus)bus).dopdoors.SetDoors(kolvo);
                         }
                         else if(((JLabel) selectObj).getName().contains("DoorOval")){
                             ((Bus)bus).SetDoors(new ClassDopDoorsOval());
+                            ((Bus)bus).dopdoors.SetDoors(kolvo);
                         }
                         else{
                             ((Bus)bus).SetDoors(new ClassDopDoorsSkos());
+                            ((Bus)bus).dopdoors.SetDoors(kolvo);
                         }
                         frame.repaint();
                     }
