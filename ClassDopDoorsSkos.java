@@ -3,7 +3,9 @@ import java.util.Random;
 
 public class ClassDopDoorsSkos implements InterDop{
     private EnumDopDoors doors;
+    public EnumDopDoors GetDoors(){return doors;}
 
+    public int GetDoorsInt(){return doors.ordinal() + 3;}
     public void SetDoors(int value) {
         if (EnumDopDoors.ThreeDoors.KolvoDoorExist(value)) {
             doors = EnumDopDoors.ThreeDoors.GetDoors(value);

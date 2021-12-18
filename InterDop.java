@@ -4,6 +4,7 @@ public interface InterDop {
     //      свойство для установки кол-ва дверей
     //с условием (2 < kolvo < 6)
     void SetDoors(int value);
+    int GetDoorsInt();
 
     //      отрисовка дверей
     //графика g

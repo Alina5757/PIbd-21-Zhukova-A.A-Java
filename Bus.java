@@ -8,6 +8,8 @@ class Bus extends Vehicle {
     protected int busHeight = 35;
     public int GetBusHeight() { return busHeight; }
 
+    protected String separator = ";";
+
     InterDop dopdoors;
     public void SetDoors(InterDop inter){
         dopdoors = inter;
@@ -29,7 +31,7 @@ class Bus extends Vehicle {
         else {
             dopdoors = new ClassDopDoorsSkos();
         }
-        dopdoors.SetDoors(3 + (random.nextInt() % 3));  //от 3 до 5 включительно
+        dopdoors.SetDoors(3 + Math.abs(random.nextInt() % 3));  //от 3 до 5 включительно
     }
 
     protected Bus(int Maxspeed, int Weight, Color MainColor, int BusWidth, int BusHeight) {
@@ -51,6 +53,30 @@ class Bus extends Vehicle {
             dopdoors = new ClassDopDoorsSkos();
         }
         dopdoors.SetDoors(3 + (random.nextInt() % 3));  //от 3 до 5 включительно
+    }
+
+    public Bus(String info) {  //для загрузки с файла
+        String[] str = info.split(separator);
+        if (str.length == 5) {
+            maxSpeed = Integer.parseInt(str[0]);
+            weight = Integer.parseInt(str[1]);
+
+            if(str[2].equals("Doors-Normal")) {
+                dopdoors = new ClassDopDoorsNormal();
+            }
+            else if(str[2].equals("Doors-Oval")) {
+                dopdoors = new ClassDopDoorsOval();
+            }
+            else if(str[2].equals("Doors-Skos")) {
+                dopdoors = new ClassDopDoorsSkos();
+            }
+            else {return;}
+            int kolvoDoor = Integer.parseInt(str[3]);
+            if(kolvoDoor < 6 && kolvoDoor > 2){
+                dopdoors.SetDoors(kolvoDoor);
+            }
+            mainColor = Color.decode(str[4]);
+        }
     }
 
     public @Override
@@ -116,5 +142,22 @@ class Bus extends Vehicle {
             dopdoors.DrowDoors(g, x_koor, y_koor);
         }
         frame.repaint();
+    }
+
+    public @Override
+    String toString(){
+        String str ="";
+        str += maxSpeed + separator + weight + separator;
+        if(dopdoors instanceof ClassDopDoorsNormal){
+            str += "Doors-Normal" + separator + (((ClassDopDoorsNormal) dopdoors).GetDoors().ordinal()+3) + separator;
+        }
+        else if(dopdoors instanceof ClassDopDoorsOval){
+            str += "Doors-Oval" + separator + (((ClassDopDoorsOval) dopdoors).GetDoors().ordinal()+3) + separator;
+        }
+        else if(dopdoors instanceof ClassDopDoorsSkos){
+            str += "Doors-Skos" + separator + (((ClassDopDoorsSkos) dopdoors).GetDoors().ordinal()+3) + separator;
+        }
+        str += mainColor.getRGB();
+        return str;
     }
 }
